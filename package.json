@@ -1,0 +1,20 @@
+{
+  "name": "tocken-app-node",
+  "version": "1.0.0",
+  "description": "tocken app for users",
+  "main": "app/server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app/server/index.js"
+  },
+  "author": "akhil mk",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.14",
+    "nodemon": "^2.0.4",
+    "rand-token": "^1.0.1"
+  }
+}
