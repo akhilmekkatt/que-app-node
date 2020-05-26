@@ -4,14 +4,35 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const randtoken = require("rand-token");
 const appRoute = express.Router();
+/* collections */
+let UserCollection = require("../Model/UserInfo");
+let StoreCollection = require("../Model/StoreInfo");
 
-let loginRequestModel = require("../Model/LoginRequest");
+/* store operations */
+appRoute.route("/addStore").post((req, res) => {
+  let request = new StoreCollection(req.body);
+  request
+    .save()
+    .then(game => {
+      res.status(200).json({ request: "Store Added Successfully" });
+    })
+    .catch(err => {
+      res.status(400).send("Something Went Wrong");
+    });
+});
+appRoute.route("/listStores").get((req, res) => {
+  StoreCollection.find((err, users) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(users);
+    }
+  });
+});
 
-
-//user actions
-// To Add new user
+/* user operations */
 appRoute.route("/addUser").post((req, res) => {
-  let request = new loginRequestModel(req.body);
+  let request = new UserCollection(req.body);
   request
     .save()
     .then(game => {
@@ -23,8 +44,8 @@ appRoute.route("/addUser").post((req, res) => {
 });
 
 //list users
-appRoute.route("/users").get((req, res) => {
-  loginRequestModel.find((err, users) => {
+appRoute.route("/listUsers").get((req, res) => {
+  UserCollection.find((err, users) => {
     if (err) {
       console.log(err);
     } else {
@@ -35,7 +56,7 @@ appRoute.route("/users").get((req, res) => {
 
 appRoute.route("/deleteUser/:id").get((req, res, next) => {
 
-  loginRequestModel.findByIdAndRemove({ _id: req.params.id }, (err, employee) => {
+  UserCollection.findByIdAndRemove({ _id: req.params.id }, (err, employee) => {
     if (err) res.json(err);
     else res.json("User Deleted Successfully");
   });
@@ -45,7 +66,7 @@ appRoute.route("/deleteUser/:id").get((req, res, next) => {
 //authenticate
 appRoute.route("/authenticate").post((req, res) => {
   console.log("before", req.body);
-  loginRequestModel.findOne(
+  UserCollection.findOne(
     { username: req.body.username, password: req.body.password },
     (user, err) => {
       console.log(err);

@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// List of columns for Product schema
-let Product = new Schema(
+// List of columns for StoreInfo schema
+let StoreInfo = new Schema(
   {
     id: { type: String },
 
     name: {
-      type: String
+      type: String, required: true, index: { unique: true }
     },
     details: {
       type: String
@@ -21,14 +21,11 @@ let Product = new Schema(
     category: {
       type: Array
     },
-    date: {
+    addedDate: {
       type: Date
     },
-    itemPrice: {
-      type: Number
-    },
-    size: {
-      type: Array
+    addedBy: {
+      type: String
     },
     rating: {
       type: Number
@@ -37,11 +34,10 @@ let Product = new Schema(
       type: Array
     }
 
-
   },
   {
-    collection: "Products"
+    collection: "StoreInfo"
   }
 );
 
-module.exports = mongoose.model("Product", Product);
+module.exports = mongoose.model("StoreInfo", StoreInfo);
