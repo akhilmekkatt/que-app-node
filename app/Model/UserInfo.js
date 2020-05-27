@@ -14,7 +14,12 @@ let UserInfo = new Schema(
     }, phone: {
       type: Number, required: true, index: { unique: true }
     },
-    role: { type: Array }
+    role: { type: Array },
+    tockens: [
+      { store: String },
+      { orderDate: Date }
+    ]
+
   },
   {
     collection: "Users"

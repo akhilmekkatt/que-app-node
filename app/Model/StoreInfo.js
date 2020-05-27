@@ -4,13 +4,10 @@ const Schema = mongoose.Schema;
 // List of columns for StoreInfo schema
 let StoreInfo = new Schema(
   {
-    id: { type: String },
+    storeId: { type: String, required: true, index: { unique: true } },
 
     name: {
       type: String, required: true, index: { unique: true }
-    },
-    details: {
-      type: String
     },
     description: {
       type: String
@@ -32,6 +29,15 @@ let StoreInfo = new Schema(
     },
     images: {
       type: Array
+    },
+    lattitude: {
+      type: Number
+    },
+    longitude: {
+      type: Number
+    },
+    phone: {
+      type: Number, required: true, index: { unique: true }
     }
 
   },

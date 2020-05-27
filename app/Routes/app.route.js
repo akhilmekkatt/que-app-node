@@ -9,9 +9,9 @@ let UserCollection = require("../Model/UserInfo");
 let StoreCollection = require("../Model/StoreInfo");
 
 /* store operations */
-appRoute.route("/addStore").post((req, res) => {
+appRoute.route("/addStore").post(async (req, res) => {
   let request = new StoreCollection(req.body);
-  request
+  await request
     .save()
     .then(game => {
       res.status(200).json({ request: "Store Added Successfully" });
